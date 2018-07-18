@@ -21,10 +21,10 @@ class Google extends AbstractProvider
     protected $accessType;
 
     /**
-     * @var string If set, this will be sent to google as the "hd" parameter.
+     * @var array If set, this will be sent to google as the "hd" parameter.
      * @link https://developers.google.com/accounts/docs/OAuth2Login#hd-param
      */
-    protected $hostedDomain;
+    protected $hostedDomain = [];
 
     /**
      * @var array Default fields to be requested from the user profile.
@@ -129,8 +129,10 @@ class Google extends AbstractProvider
             if (empty($user->getHostedDomain())) {
                 throw HostedDomainException::notMatchingDomain($this->hostedDomain);
             }
-        } elseif (!empty($this->hostedDomain) && $this->hostedDomain !== $user->getHostedDomain()) {
-            throw HostedDomainException::notMatchingDomain($this->hostedDomain);
+        } elseif (!empty($this->hostedDomain){
+            if (!in_array($user->getHostedDomain(), $this->hostedDomain){
+                throw HostedDomainException::notMatchingDomain($this->hostedDomain);
+            }            
         }
 
         return $user;
